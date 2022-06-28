@@ -75,8 +75,9 @@ void page_init()
     printk("Number of pages: %u\n", num_pages);
 }
 
-void *kmalloc(uint32_t num_requested_pages)
+void *kmalloc(uint32_t size)
 {
+    uint32_t num_requested_pages = align_page(size, PAGE_ORDER) / PAGE_SIZE;
     uint32_t num_pages = get_num_pages();
     struct page *pages = (struct page *)HEAP_START;
 
